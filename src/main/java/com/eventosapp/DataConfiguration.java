@@ -1,24 +1,18 @@
-package com.eventosapp.data;
+package com.eventosapp;
 
-import java.net.URI;
 import java.net.URISyntaxException;
-
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile("prod")
-public class DataConfigurationPostgreSQL{
+public class DataConfiguration {
 
 	@Bean
     public BasicDataSource dataSource() throws URISyntaxException {
-        URI dbUri = new URI(System.getenv("DATABASE_URL"));
-
-        String username = dbUri.getUserInfo().split(":")[0];
-        String password = dbUri.getUserInfo().split(":")[1];
-        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+        String username = "root";
+        String password = "root";
+        String dbUrl = "jdbc:postgresql://127.0.0.1:5432/db001";
 
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setUrl(dbUrl);
@@ -27,4 +21,7 @@ public class DataConfigurationPostgreSQL{
 
         return basicDataSource;
     }
+	
+
+
 }
